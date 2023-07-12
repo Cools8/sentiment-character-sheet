@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Character Sheet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        input[type="submit"],
+        input[type="file"] {
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover,
+        input[type="file"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Character Sheet</h1>
+
+    <form id="characterForm">
+        <label for="characterName">Character Name:</label>
+        <input type="text" id="characterName" name="characterName" required>
+
+        <label for="attribute1">Attribute 1:</label>
+        <input type="text" id="attribute1" name="attribute1" required>
+
+        <label for="color1">Attribute 1 Color:</label>
+        <input type="color" id="color1" name="color1">
+
+        <label for="attribute2">Attribute 2:</label>
+        <input type="text" id="attribute2" name="attribute2" required>
+
+        <label for="color2">Attribute 2 Color:</label>
+        <input type="color" id="color2" name="color2">
+
+        <label for="attribute3">Attribute 3:</label>
+        <input type="text" id="attribute3" name="attribute3" required>
+
+        <label for="color3">Attribute 3 Color:</label>
+        <input type="color" id="color3" name="color3">
+
+        <label for="currentHP">Current HP:</label>
+        <input type="number" id="currentHP" name="currentHP">
+
+        <label for="maxHP">Max HP:</label>
+        <input type="number" id="maxHP" name="maxHP">
+
+        <label for="experience">Experience:</label>
+        <input type="number" id="experience" name="experience">
+
+        <h2>Descriptions</h2>
+
+        <div>
+            <label for="title1">Title:</label>
+            <input type="text" id="title1" name="title1" required>
+
+            <label for="description1">Description:</label>
+            <textarea id="description1" name="description1" rows="4" cols="50"></textarea>
+        </div>
+
+        <div>
+            <label for="title2">Title:</label>
+            <input type="text" id="title2" name="title2" required>
+
+            <label for="description2">Description:</label>
+            <textarea id="description2" name="description2" rows="4" cols="50"></textarea>
+        </div>
+
+        <div>
+            <label for="title3">Title:</label>
+            <input type="text" id="title3" name="title3" required>
+
+            <label for="description3">Description:</label>
+            <textarea id="description3" name="description3" rows="4" cols="50"></textarea>
+        </div>
+
+        <div>
+            <label for="title4">Title:</label>
+            <input type="text" id="title4" name="title4" required>
+
+            <label for="description4">Description:</label>
+            <textarea id="description4" name="description4" rows="4" cols="50"></textarea>
+        </div>
+
+        <div>
+            <label for="title5">Title:</label>
+            <input type="text" id="title5" name="title5" required>
+
+            <label for="description5">Description:</label>
+            <textarea id="description5" name="description5" rows="4" cols="50"></textarea>
+        </div>
+
+        <div>
+            <label for="title6">Title:</label>
+            <input type="text" id="title6" name="title6" required>
+
+            <label for="description6">Description:</label>
+            <textarea id="description6" name="description6" rows="4" cols="50"></textarea>
+        </div>
+
+        <input type="submit" value="Save Character">
+        <input type="file" id="importCharacter" accept=".json">
+        <button id="importButton">Import Character</button>
+    </form>
+
+    <script>
+        // JavaScript code to handle form submission and save the data
+        document.getElementById('characterForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            const characterData = Object.fromEntries(formData.entries());
+
+            // Save character data to local storage
+            localStorage.setItem('characterData', JSON.stringify(characterData));
+            console.log('Character saved!');
+        });
+
+        // JavaScript code to handle import button click and load the character data
+        document.getElementById('importButton').addEventListener('click', function(event) {
+            document.getElementById('importCharacter').click();
+        });
+
+        // JavaScript code to handle file selection and load the character data from the imported file
+        document.getElementById('importCharacter').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const importedCharacterData = JSON.parse(e.target.result);
+                populateCharacterData(importedCharacterData);
+                console.log('Character imported!');
+            };
+
+            reader.readAsText(file);
+        });
+
+        // JavaScript code to populate the form fields with the imported character data
+        function populateCharacterData(data) {
+            document.getElementById('characterName').value = data.characterName || '';
+            document.getElementById('attribute1').value = data.attribute1 || '';
+            document.getElementById('color1').value = data.color1 || '';
+            document.getElementById('attribute2').value = data.attribute2 || '';
+            document.getElementById('color2').value = data.color2 || '';
+            document.getElementById('attribute3').value = data.attribute3 || '';
+            document.getElementById('color3').value = data.color3 || '';
+            document.getElementById('currentHP').value = data.currentHP || '';
+            document.getElementById('maxHP').value = data.maxHP || '';
+            document.getElementById
